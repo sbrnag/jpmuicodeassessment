@@ -60,10 +60,8 @@ function FITable({data} : propType) {
     const [sortedData , setSortedData] = useState<data[]>(data);
 
     const handleSort = (sortColumn: string) => {
-        console.log('hanlde sort');
         const sortedArr = sortDataByColumn(data, sortColumn);
         setSortedData([...sortedArr]);
-        console.log(`sortedData : ${JSON.stringify(sortedData)}`)
     }
 
     return (
