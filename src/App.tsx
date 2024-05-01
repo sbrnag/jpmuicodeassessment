@@ -7,7 +7,9 @@ import { tableData } from './data/data'
 function App() {
   return (
     <div className="App">
-      <h2>Financial Instruments</h2>
+        <p>
+          JPM UI CODE ASSESSEMENT
+        </p>
       <FITable data={tableData}></FITable>
     </div>
   );

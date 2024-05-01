@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { data } from '../data/data';
 import './FITable.css';
 
@@ -25,29 +26,73 @@ const columns: columnType[] = [
     } 
 ];
 
+function sortByAssetClass(arr : data[]) {
+    const order = { "Commodities": 0, "Equities": 1, "Credit": 2 };
+    arr.sort((a, b) => {
+        return order[a.assetClass] - order[b.assetClass];
+    });
+    return arr;
+};
+
+function sortByPriceDescending(arr : data[]) {
+    return arr.sort((a, b) => b.price - a.price);
+};
+
+function sortByTickerAlphabetically(arr: data[]) {
+    return arr.sort((a, b) => a.ticker.localeCompare(b.ticker));
+};
+
+function sortDataByColumn(arr: data[], column: string) {
+    switch (column) {
+        case 'assetClass':
+            return sortByAssetClass(arr);
+        case 'price':
+            return sortByPriceDescending(arr);
+        case 'ticker':
+            return sortByTickerAlphabetically(arr);
+        default:
+            return arr; // Return unsorted array if column is not recognized
+    }
+}
+
 function FITable({data} : propType) {
+
+    const [sortedData , setSortedData] = useState<data[]>(data);
+
+    const handleSort = (sortColumn: string) => {
+        console.log('hanlde sort');
+        const sortedArr = sortDataByColumn(data, sortColumn);
+        setSortedData([...sortedArr]);
+        console.log(`sortedData : ${JSON.stringify(sortedData)}`)
+    }
+
     return (
         <table className='fi-table'>
             <thead>
                 <tr>
                     {columns.map(col =>
-                        <th key={col.name}>{col.header}</th>
+                        <th key={col.name} className='fi-table-th'>
+                            <button className='sort-button' onClick={() => handleSort(col.name)}>
+                                {col.header} ▲
+                            </button>    
+                        </th>
                     )}
                 </tr>
             </thead>
             <tbody>
-                {data.length > 0 && data.map( (row, index) =>
-                    <tr key={index} 
-                        className={ row.assetClass === 'Equities' ? 'fi-equities' : 
-                                    row.assetClass ===  'Credit' ? 'fi-credit' :
-                                    row.assetClass ===  'Commodities' ? 'fi-commodities' : ''}>
-                        {columns.map(col =>
-                            <td key={col.name} 
-                                className={col.name === 'price' ? row[col.name] > 0 ? 'fi-table-td-possitive' : 'fi-table-td-negative' : ''}>
-                                {row[col.name]}
-                            </td>
-                        )}
-                    </tr>
+                {sortedData.length > 0 && sortedData.map( (row, index) => {
+                    return <tr key={index} 
+                                className={ row.assetClass === 'Equities' ? 'fi-equities' : 
+                                            row.assetClass ===  'Credit' ? 'fi-credit' :
+                                            row.assetClass ===  'Commodities' ? 'fi-commodities' : ''}>
+                                {columns.map(col =>
+                                    <td key={col.name} 
+                                        className={col.name === 'price' ? row[col.name] > 0 ? 'fi-table-td-possitive' : 'fi-table-td-negative' : ''}>
+                                        {row[col.name]}
+                                    </td>
+                                )}
+                            </tr>
+                    }
                 )}
             </tbody>
         </table>

@@ -5,7 +5,8 @@
 }
 
 .fi-table-th {
-    border: 1px solid;
+    background-color: lightgrey;
+    font-size: 20px;
 }
 
 .fi-table-td {
@@ -30,5 +31,9 @@
 
 .fi-commodities {
     background : white
+}
+
+.sort-button {
+    font-size: 18px;
 }
 
