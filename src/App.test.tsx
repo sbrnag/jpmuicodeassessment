@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders learn react link', () => {
   render(<App />);
-  const textElement = screen.getByText(/JPM UI CODE ASSESSEMENT/i);
+  const textElement = screen.getByText(/Financial Instruments/i);
   expect(textElement).toBeInTheDocument();
 });
