@@ -1,0 +1,34 @@
+
+.fi-table {
+    width: 100%;
+    border: 1px solid;
+}
+
+.fi-table-th {
+    border: 1px solid;
+}
+
+.fi-table-td {
+    border: 1px solid;
+}
+
+.fi-table-td-possitive {
+    color: rgb(4, 4, 248)
+}
+
+.fi-table-td-negative {
+    color: red
+}
+
+.fi-credit {
+    background : green
+}
+
+.fi-equities {
+    background : rgb(110, 110, 232)
+}
+
+.fi-commodities {
+    background : white
+}
+

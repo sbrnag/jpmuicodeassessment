@@ -1,4 +1,5 @@
 import { data } from '../data/data';
+import './FITable.css';
 
 type propType = {
     data : data[]
@@ -26,7 +27,7 @@ const columns: columnType[] = [
 
 function FITable({data} : propType) {
     return (
-        <table>
+        <table className='fi-table'>
             <thead>
                 <tr>
                     {columns.map(col =>
@@ -36,9 +37,15 @@ function FITable({data} : propType) {
             </thead>
             <tbody>
                 {data.length > 0 && data.map( (row, index) =>
-                    <tr key={index}>
+                    <tr key={index} 
+                        className={ row.assetClass === 'Equities' ? 'fi-equities' : 
+                                    row.assetClass ===  'Credit' ? 'fi-credit' :
+                                    row.assetClass ===  'Commodities' ? 'fi-commodities' : ''}>
                         {columns.map(col =>
-                            <td key={col.name}>{row[col.name]}</td>
+                            <td key={col.name} 
+                                className={col.name === 'price' ? row[col.name] > 0 ? 'fi-table-td-possitive' : 'fi-table-td-negative' : ''}>
+                                {row[col.name]}
+                            </td>
                         )}
                     </tr>
                 )}

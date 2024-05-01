@@ -13,7 +13,7 @@ export const tableData : data[] = [
     },
     {
         'ticker' : 'BETA',
-        'price' : 3791.10,
+        'price' : -3791.10,
         'assetClass' : "Commodities"
     },
     {
